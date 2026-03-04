@@ -1,26 +1,20 @@
-# Currículo Profissional - Pedro Elias
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Este é um projeto de website de currículo moderno e responsivo, construído com **React**, **Tailwind CSS** e **Framer Motion**.
+# Run and deploy your AI Studio app
 
-## 🚀 Como publicar no GitHub Pages
+This contains everything you need to run your app locally.
 
-1. **Baixe este projeto** e extraia em uma pasta no seu computador.
-2. **Adicione sua foto**: Substitua o arquivo `src/profile.png` pela sua foto real.
-3. **GitHub Desktop**:
-   - Abra o GitHub Desktop e adicione esta pasta como um novo repositório.
-   - Clique em **Publish Repository** para enviar ao seu GitHub.
-4. **Ative o Site**:
-   - No seu repositório no GitHub, vá em **Settings > Pages**.
-   - Em **Build and deployment**, mude a fonte para **GitHub Actions**.
-   - O site estará online em instantes!
+View your app in AI Studio: https://ai.studio/apps/5bde4d1b-4b84-4c8d-920f-d990511094ef
 
-## 🛠️ Tecnologias Utilizadas
+## Run Locally
 
-- React 19
-- Tailwind CSS (Estilização)
-- Lucide React (Ícones)
-- Framer Motion (Animações)
-- Vite (Build Tool)
+**Prerequisites:**  Node.js
 
-## 📄 Licença
-Este projeto foi desenvolvido como um currículo profissional. Sinta-se à vontade para usar e modificar.
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

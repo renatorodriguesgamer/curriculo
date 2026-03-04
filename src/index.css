@@ -1,44 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --color-brand-blue: #0055FF;
 }
 
 @layer base {
   body {
-    @apply bg-[#f8f9fa] text-slate-900 font-sans;
+    @apply bg-zinc-50 text-zinc-900 font-sans antialiased;
   }
 }
 
-@layer components {
-  .section-title {
-    @apply font-serif text-3xl font-bold mb-8 relative inline-block;
-  }
-  
-  .section-title::after {
-    @apply content-[''] absolute -bottom-2 left-0 w-12 h-1 bg-slate-900;
-  }
-
-  .card {
-    @apply bg-white rounded-2xl p-8 shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-md;
-  }
+.skill-bar-bg {
+  @apply h-2 w-full bg-zinc-200 rounded-full overflow-hidden;
 }
 
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  body {
-    background: white !important;
-  }
-  
-  .card {
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin-bottom: 2rem !important;
-  }
+.skill-bar-fill {
+  @apply h-full bg-brand-blue rounded-full;
 }

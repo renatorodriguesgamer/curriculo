@@ -1,345 +1,257 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { motion } from 'motion/react';
+import React from 'react';
 import { 
-  Mail, 
   Phone, 
-  MapPin, 
+  Mail, 
   Linkedin, 
-  Github, 
-  Download, 
-  ExternalLink, 
-  Briefcase, 
+  MapPin, 
   GraduationCap, 
-  Code, 
+  Briefcase, 
+  Award, 
   User,
-  Globe,
-  Award,
-  CheckCircle
+  ExternalLink,
+  ChevronRight
 } from 'lucide-react';
-import { resumeData } from './data';
+import { motion } from 'motion/react';
+
+const SectionTitle = ({ children, icon: Icon }: { children: React.ReactNode, icon?: any }) => (
+  <div className="flex items-center gap-3 mb-6 border-b border-zinc-200 pb-2">
+    {Icon && <Icon className="w-5 h-5 text-brand-blue" />}
+    <h2 className="text-2xl font-bold text-brand-blue uppercase tracking-tight">{children}</h2>
+  </div>
+);
+
+const SkillItem = ({ name, level }: { name: string, level: string }) => (
+  <div className="mb-4">
+    <div className="flex justify-between items-center mb-1">
+      <span className="text-sm font-medium text-zinc-700">{name}</span>
+      <span className="text-[10px] px-2 py-0.5 bg-brand-blue text-white rounded-full font-bold uppercase">{level}</span>
+    </div>
+    <div className="skill-bar-bg">
+      <motion.div 
+        initial={{ width: 0 }}
+        whileInView={{ width: level === 'Básico' ? '40%' : '70%' }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="skill-bar-fill" 
+      />
+    </div>
+  </div>
+);
 
 export default function App() {
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
-    <div className="min-h-screen pb-20">
-      {/* Header / Hero Section */}
-      <header className="bg-slate-900 text-white py-24 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-800 skew-x-[-15deg] translate-x-1/2 opacity-50" />
-        
-        <div className="max-w-5xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="flex flex-col md:flex-row gap-8 items-start md:items-center mb-8">
-              <motion.div 
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="w-32 h-32 rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl shrink-0"
-              >
-                <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400" 
-                  alt={`Foto de perfil de ${resumeData.name}`}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </motion.div>
-              <div>
-                <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight mb-4 uppercase">
-                  {resumeData.name}
-                </h1>
-                <p className="text-xl md:text-2xl text-slate-400 font-light tracking-wide">
-                  {resumeData.title}
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-6 text-sm text-slate-300">
-              <a href={`mailto:${resumeData.email}`} className="flex items-center gap-2 hover:text-white transition-colors">
-                <Mail size={16} /> {resumeData.email}
-              </a>
-              <div className="flex items-center gap-2">
-                <Phone size={16} /> {resumeData.phone}
-              </div>
-              <div className="flex items-center gap-2 font-bold">
-                <MapPin size={16} /> {resumeData.location}
-              </div>
-            </div>
-            
-            <div className="flex gap-4 mt-8 no-print">
-              <a 
-                href={`https://${resumeData.linkedin}`} 
-                target="_blank" 
-                rel="noreferrer"
-                className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a 
-                href={`https://${resumeData.github}`} 
-                target="_blank" 
-                rel="noreferrer"
-                className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Github size={20} />
-              </a>
-              <button 
-                onClick={handlePrint}
-                className="flex items-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-medium transition-all transform hover:scale-105"
-              >
-                <Download size={18} /> Imprimir PDF
-              </button>
-            </div>
-          </motion.div>
-        </div>
+    <div className="min-h-screen bg-white selection:bg-brand-blue selection:text-white">
+      {/* Mobile Header */}
+      <header className="lg:hidden bg-zinc-900 text-white p-6 sticky top-0 z-50 shadow-lg">
+        <h1 className="text-3xl font-black leading-none mb-2">
+          PEDRO ELIAS<br />
+          <span className="text-brand-blue">DOS SANTOS FERREIRA</span>
+        </h1>
+        <p className="text-zinc-400 text-sm font-medium uppercase tracking-widest">Designer Gráfico & Adm</p>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 -mt-12 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
+        
+        {/* Sidebar */}
+        <aside className="w-full lg:w-1/3 bg-zinc-50 lg:min-h-screen p-8 lg:p-12 border-r border-zinc-200">
+          <div className="hidden lg:block mb-12">
+             <motion.h1 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="text-5xl font-black leading-[0.9] tracking-tighter text-zinc-900 mb-4"
+            >
+              PEDRO ELIAS<br />
+              DOS SANTOS<br />
+              FERREIRA
+            </motion.h1>
+            <div className="h-1 w-20 bg-brand-blue mb-8"></div>
+          </div>
+
+          {/* Contact Section */}
+          <section className="mb-12">
+            <h3 className="text-brand-blue font-bold text-xl mb-6 uppercase tracking-widest border-b border-brand-blue/20 pb-2">Contato</h3>
+            <div className="space-y-4">
+              <a href="tel:+5541988402775" className="flex items-center gap-4 text-zinc-600 hover:text-brand-blue transition-colors group">
+                <div className="p-2 bg-white rounded-lg shadow-sm group-hover:shadow-md transition-all">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <span className="text-sm font-medium">(41) 98840-2775</span>
+              </a>
+              <a href="mailto:pedroeliasferreira@gmail.com" className="flex items-center gap-4 text-zinc-600 hover:text-brand-blue transition-colors group">
+                <div className="p-2 bg-white rounded-lg shadow-sm group-hover:shadow-md transition-all">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <span className="text-sm font-medium break-all">pedroeliasferreira@gmail.com</span>
+              </a>
+              <a href="https://linkedin.com/in/pedroeliasferreira" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-zinc-600 hover:text-brand-blue transition-colors group">
+                <div className="p-2 bg-white rounded-lg shadow-sm group-hover:shadow-md transition-all">
+                  <Linkedin className="w-4 h-4" />
+                </div>
+                <span className="text-sm font-medium">linkedin.com/in/pedroeliasferreira</span>
+              </a>
+              <div className="flex items-start gap-4 text-zinc-600">
+                <div className="p-2 bg-white rounded-lg shadow-sm">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <span className="text-sm font-medium leading-relaxed">
+                  Av. Doutor Freitas, 1228, Torres Dumont, Apto 1604<br />
+                  Fragata, Pedreira - Belém/PA<br />
+                  CEP: 66087-810
+                </span>
+              </div>
+            </div>
+          </section>
+
+          {/* Skills Section */}
+          <section className="mb-12">
+            <h3 className="text-brand-blue font-bold text-xl mb-6 uppercase tracking-widest border-b border-brand-blue/20 pb-2">Habilidades</h3>
+            <div className="space-y-2">
+              <SkillItem name="Adobe Premiere Pro" level="Básico" />
+              <SkillItem name="Adobe After Effects" level="Básico" />
+              <SkillItem name="Adobe Photoshop" level="Básico" />
+              <SkillItem name="Adobe Illustrator" level="Básico" />
+            </div>
+          </section>
+
+          {/* Languages Section */}
+          <section>
+            <h3 className="text-brand-blue font-bold text-xl mb-6 uppercase tracking-widest border-b border-brand-blue/20 pb-2">Idiomas</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-zinc-100 text-center">
+                <p className="text-sm font-bold text-zinc-900">Libras</p>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Fluente/Nativo</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-zinc-100 text-center">
+                <p className="text-sm font-bold text-zinc-900">Inglês</p>
+                <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Básico</p>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        {/* Main Content */}
+        <main className="w-full lg:w-2/3 p-8 lg:p-20">
           
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* About Section */}
-            <motion.section 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-xl font-bold mb-4 uppercase tracking-wider">
-                <User size={20} className="text-emerald-500" /> Perfil Profissional
-              </h2>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                {resumeData.about}
-              </p>
-            </motion.section>
+          {/* Summary */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionTitle icon={User}>Resumo Profissional</SectionTitle>
+            <p className="text-lg text-zinc-600 leading-relaxed font-light">
+              Graduado em <span className="font-semibold text-zinc-900 text-brand-blue">Design Gráfico</span> (concluído em 2025), PCD auditivo, com perfil resiliente e foco em comunicação visual. Experiência administrativa e habilidades em produção e edição gráfica, unindo organização e criatividade.
+            </p>
+          </motion.section>
 
-            {/* Skills Section */}
-            <motion.section 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-xl font-bold mb-6 uppercase tracking-wider">
-                <Code size={20} className="text-emerald-500" /> Habilidades
-              </h2>
-              
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Técnicas</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {resumeData.skills.technical.map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium">
-                        {skill}
-                      </span>
-                    ))}
+          {/* Education */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionTitle icon={GraduationCap}>Formação</SectionTitle>
+            <div className="space-y-8">
+              <div className="relative pl-8 border-l-2 border-zinc-100">
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-brand-blue border-4 border-white"></div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                  <h4 className="text-xl font-bold text-zinc-900">Tecnologia em Design Gráfico</h4>
+                  <span className="text-brand-blue font-bold text-sm">2025</span>
+                </div>
+                <p className="text-zinc-600 font-medium">UNAMA - Universidade da Amazônia</p>
+                <p className="text-zinc-400 text-sm">Belém/PA</p>
+              </div>
+
+              <div className="relative pl-8 border-l-2 border-zinc-100">
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-300 border-4 border-white"></div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                  <h4 className="text-xl font-bold text-zinc-900 text-zinc-500">Ensino Médio</h4>
+                  <span className="text-zinc-400 font-bold text-sm">2016 - 2017</span>
+                </div>
+                <p className="text-zinc-500 font-medium">Colégio Estadual para Surdos Alcindo Fanaya Junior</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Experience */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionTitle icon={Briefcase}>Experiências</SectionTitle>
+            <div className="space-y-10">
+              <div className="group">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+                  <h4 className="text-xl font-bold text-zinc-900 group-hover:text-brand-blue transition-colors">Auxiliar Administrativo | TJPR</h4>
+                  <span className="text-brand-blue font-bold text-sm bg-brand-blue/5 px-3 py-1 rounded-full">2021 - 2023</span>
+                </div>
+                <ul className="space-y-3">
+                  <li className="flex gap-3 text-zinc-600 leading-relaxed">
+                    <ChevronRight className="w-5 h-5 text-brand-blue shrink-0 mt-0.5" />
+                    <span>Gestão documental e suporte administrativo especializado ao setor de processos.</span>
+                  </li>
+                  <li className="flex gap-3 text-zinc-600 leading-relaxed">
+                    <ChevronRight className="w-5 h-5 text-brand-blue shrink-0 mt-0.5" />
+                    <span>Expertise em organização de dados via Microsoft Excel e manutenção de sistemas de registro corporativo, garantindo a celeridade na tramitação de documentos oficiais.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="group">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+                  <h4 className="text-xl font-bold text-zinc-900 group-hover:text-brand-blue transition-colors">Auxiliar de Escritório</h4>
+                  <span className="text-zinc-400 font-bold text-sm bg-zinc-100 px-3 py-1 rounded-full">2019 - 2021</span>
+                </div>
+                <p className="text-zinc-500 font-medium mb-2">Trombini Embalagens S/A, Curitiba/PR</p>
+                <ul className="space-y-3">
+                  <li className="flex gap-3 text-zinc-600 leading-relaxed">
+                    <ChevronRight className="w-5 h-5 text-zinc-300 shrink-0 mt-0.5" />
+                    <span>Treinamentos na área de auxiliar de escritório.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Courses */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle icon={Award}>Cursos</SectionTitle>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { title: "Pacote Office", hours: "100 horas" },
+                { title: "Auxiliar Administrativo", hours: "100 horas" },
+                { title: "Inglês Básico", hours: "10 horas" },
+                { title: "Adobe Photoshop - Modo Essencial", hours: "11 horas", sub: "Héber Simeoni Cursos Online" }
+              ].map((course, idx) => (
+                <div key={idx} className="p-6 bg-zinc-50 rounded-2xl border border-zinc-100 hover:border-brand-blue/30 hover:bg-white hover:shadow-xl transition-all duration-300 group">
+                  <h5 className="font-bold text-zinc-900 mb-1 group-hover:text-brand-blue transition-colors">{course.title}</h5>
+                  {course.sub && <p className="text-xs text-zinc-500 mb-2 italic">{course.sub}</p>}
+                  <div className="flex items-center gap-2 text-zinc-400">
+                    <div className="w-1 h-1 rounded-full bg-brand-blue"></div>
+                    <span className="text-[10px] uppercase tracking-widest font-bold">{course.hours}</span>
                   </div>
                 </div>
-                
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Comportamentais</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {resumeData.skills.soft.map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-medium">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.section>
+              ))}
+            </div>
+          </motion.section>
 
-            {/* Languages Section */}
-            <motion.section 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-xl font-bold mb-6 uppercase tracking-wider">
-                <Globe size={20} className="text-emerald-500" /> Idiomas
-              </h2>
-              <div className="space-y-4">
-                {resumeData.languages.map((lang, idx) => (
-                  <div key={idx} className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-slate-700">{lang.name}</span>
-                    <span className="text-xs px-2 py-1 bg-slate-100 rounded text-slate-500">{lang.level}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Education Section */}
-            <motion.section 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-xl font-bold mb-6 uppercase tracking-wider">
-                <GraduationCap size={20} className="text-emerald-500" /> Formação
-              </h2>
-              <div className="space-y-6">
-                {resumeData.education.map((edu, idx) => (
-                  <div key={idx} className="relative pl-4 border-l-2 border-slate-100">
-                    <h3 className="font-bold text-slate-800 text-sm">{edu.school}</h3>
-                    <p className="text-xs text-slate-600 mt-1">{edu.degree}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-slate-400 mt-1">{edu.period}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          </div>
-
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Experience Section */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-2xl font-bold mb-8 uppercase tracking-wider">
-                <Briefcase size={24} className="text-emerald-500" /> Experiência Profissional
-              </h2>
-              
-              <div className="space-y-12">
-                {resumeData.experiences.map((exp, idx) => (
-                  <div key={idx} className="group">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-800 group-hover:text-emerald-600 transition-colors">
-                          {exp.role}
-                        </h3>
-                        <p className="text-slate-500 font-medium text-sm">{exp.company}</p>
-                      </div>
-                      <span className="text-xs font-bold text-slate-400 mt-2 md:mt-0 px-3 py-1 bg-slate-50 rounded-full">
-                        {exp.period}
-                      </span>
-                    </div>
-                    <ul className="space-y-3">
-                      {exp.description.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-slate-600 text-sm leading-relaxed">
-                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Certifications Section */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-2xl font-bold mb-8 uppercase tracking-wider">
-                <Award size={24} className="text-emerald-500" /> Cursos e Certificações
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {resumeData.certifications.map((cert, idx) => (
-                  <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-                      <Award size={20} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-800 text-sm">{cert.name}</h3>
-                      <p className="text-xs text-slate-500">{cert.hours}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Differentials Section */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15 }}
-              className="card"
-            >
-              <h2 className="flex items-center gap-2 text-2xl font-bold mb-8 uppercase tracking-wider">
-                <CheckCircle size={24} className="text-emerald-500" /> Diferenciais
-              </h2>
-              
-              <div className="space-y-4">
-                {resumeData.differentials.map((diff, idx) => (
-                  <div key={idx} className="flex gap-4 items-start">
-                    <CheckCircle size={18} className="text-emerald-500 mt-1 shrink-0" />
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      {diff}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-
-            {/* Projects Section (Conditional) */}
-            {resumeData.projects.length > 0 && (
-              <motion.section 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="card"
-              >
-                <h2 className="flex items-center gap-2 text-2xl font-bold mb-8 uppercase tracking-wider">
-                  <Code size={24} className="text-emerald-500" /> Projetos em Destaque
-                </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {resumeData.projects.map((project, idx) => (
-                    <div key={idx} className="p-6 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-md transition-all group">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-bold text-lg text-slate-800">{project.name}</h3>
-                        {project.link && (
-                          <a 
-                            href={project.link} 
-                            target="_blank" 
-                            rel="noreferrer"
-                            className="text-slate-400 hover:text-emerald-500 transition-colors"
-                          >
-                            <ExternalLink size={18} />
-                          </a>
-                        )}
-                      </div>
-                      <p className="text-sm text-slate-600 mb-4">
-                        {project.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </motion.section>
-            )}
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
 
       {/* Footer */}
-      <footer className="max-w-5xl mx-auto px-6 mt-12 text-center text-slate-400 text-sm no-print">
-        <p>© {new Date().getFullYear()} {resumeData.name}. Todos os direitos reservados.</p>
-        <p className="mt-2 italic">Criado com React, Tailwind CSS e muito café.</p>
+      <footer className="bg-zinc-900 text-white py-12 px-8 text-center">
+        <p className="text-zinc-500 text-sm mb-4">© 2025 Pedro Elias dos Santos Ferreira. Todos os direitos reservados.</p>
+        <div className="flex justify-center gap-6">
+          <a href="#" className="text-zinc-400 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
+          <a href="#" className="text-zinc-400 hover:text-white transition-colors"><Mail className="w-5 h-5" /></a>
+        </div>
       </footer>
     </div>
   );
