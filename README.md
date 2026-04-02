@@ -21,7 +21,7 @@ O código foi estruturado com o auxílio do **Google AI Studio** para garantir a
 ## 💻 Visualização Online
 
 O projeto pode ser visualizado em tempo real através do link abaixo:
-👉 [https://pedrogg20.github.io/curriculo/](https://pedrogg20.github.io/curriculo/)
+👉 [https://renatorodriguesgamer.github.io/curriculo/](https://renatorodriguesgamer.github.io/curriculo/)
 
 ## 📂 Estrutura do Repositório
 
@@ -36,4 +36,4 @@ Este projeto está licenciado sob a **GNU GPLv2**.
 A licença GNU GPL2 permite que você use, estude, compartilhe e modifique o software, desde que qualquer trabalho derivado também seja distribuído sob a mesma licença. Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou acesse o link oficial: [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
 
 ---
-Desenvolvido por [Pedrogg20](https://github.com/pedrogg20)
+Desenvolvido por [renatorodriguesgamer](https://github.com/renatorodriguesgamer)
